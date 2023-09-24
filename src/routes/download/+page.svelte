@@ -14,7 +14,7 @@
           icon: "/img/android.svg",
           title: ".apk",
           subtitle: "v10.0.0",
-          link: "https://github.com/lan-genius/lan-genius.github.io/releases/download/v10/langenius_android_v10.0.1.apk",
+          link: "https://github.com/lan-genius/releases/releases/download/v10/langenius_android_v10.0.1.apk",
           alternateLink: "https://wwwz.lanzout.com/iANPt1866wgf",
         },
         {
@@ -61,7 +61,7 @@
           icon: "/img/apple.svg",
           title: "Mac OS",
           subtitle: "v8.2.1",
-          link: "https://github.com/lan-genius/lan-genius.github.io/releases/download/v8/langenius_mac_v8.2.1.zip",
+          link: "https://github.com/lan-genius/releases/releases/download/v8/langenius_mac_v8.2.1.zip",
           alternateLink: "https://wwi.lanzoui.com/ieANFwhmc7a",
         },
         {
@@ -81,7 +81,7 @@
           icon: "/img/linux.svg",
           title: "Linux",
           subtitle: "v.8.2.1",
-          link: "https://github.com/lan-genius/lan-genius.github.io/releases/download/v8/langenius_linux_amd64_v8.2.1.tar.gz",
+          link: "https://github.com/lan-genius/releases/releases/download/v8/langenius_linux_amd64_v8.2.1.tar.gz",
           alternateLink: "https://wwi.lanzoui.com/if63Kwhkisf",
         },
       ],

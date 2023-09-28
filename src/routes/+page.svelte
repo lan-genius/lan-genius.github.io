@@ -1,11 +1,11 @@
 <script>
   // @ts-nocheck
-
-  import { base } from "$app/paths";
   import { getRoute } from "$lib";
   import { getStr, ids } from "$lib/lang";
 </script>
-
+<svelte:head>
+  <title> {getStr(ids.homeTitle)} </title>
+</svelte:head>
 <div class="col">
   <div class="colst w maxw3xl p">
     <h1 class="ml">

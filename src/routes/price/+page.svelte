@@ -1,8 +1,15 @@
 <script>
-  import { getRoute } from "$lib";
+  import { getRoute, parseQuery } from "$lib";
   import { getStr, ids } from "$lib/lang";
 
   let username = "";
+  if (typeof window !== "undefined") {
+    let m = parseQuery(location.href);
+    username = m["username"];
+    if (!username) {
+      username = m["u"];
+    }
+  }
 </script>
 
 <div class="col">
@@ -55,5 +62,4 @@
 </div>
 
 <style>
-
 </style>

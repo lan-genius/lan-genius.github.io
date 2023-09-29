@@ -13,9 +13,9 @@
         {
           icon: "/img/android.svg",
           title: ".apk",
-          subtitle: "v10.0.0",
-          link: "https://github.com/lan-genius/releases/releases/download/v10/langenius_android_v10.0.1.apk",
-          alternateLink: "https://wwwz.lanzout.com/iANPt1866wgf",
+          subtitle: "v10.1.0",
+          link: "https://github.com/lan-genius/releases/releases/download/v10/langenius_android_v10.1.0.apk",
+          alternateLink: "https://wwwz.lanzout.com/iTW4T1a6rvlc",
         },
         {
           icon: "/img/playstore.png",

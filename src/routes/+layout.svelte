@@ -2,13 +2,13 @@
   // @ts-nocheck
 
   import { getRoute } from "$lib";
-  import { getStr, ids } from "$lib/lang";
+  import { getStr, ids, modeMainlandChina } from "$lib/lang";
   import { base } from "$app/paths";
   let langLink = "javascript:localStorage.setItem('lang','zh');location.href='/zh'";
-  let langText = '中文';
-  if (base === "/zh") {
+  let langText = "中文";
+  if (base === "/zh" || modeMainlandChina) {
     langLink = "javascript:localStorage.setItem('lang','en');location.href='/en'";
-    langText = 'EN'
+    langText = "EN";
   }
 </script>
 
@@ -28,7 +28,7 @@
     <span class="material-icons md-18">call</span>
     <span class="mobilehide">{getStr(ids.contact)}</span>
   </a>
-  <a class="btn btn-link" href={langLink} >
+  <a class="btn btn-link" href={langLink}>
     {langText}
   </a>
 </div>

@@ -1,6 +1,6 @@
 import { base } from "$app/paths";
 
-const modeMainlandChina = false;
+export const modeMainlandChina = false;
 
 interface Translation {
     en: string;

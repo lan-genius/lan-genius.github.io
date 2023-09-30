@@ -3,28 +3,69 @@
   import { getRoute } from "$lib";
   import { getStr, ids } from "$lib/lang";
 </script>
-<svelte:head>
-  <title> {getStr(ids.homeTitle)} </title>
-</svelte:head>
-<div class="col">
-  <div class="colst w maxw3xl p">
-    <h1 class="ml">
-      {getStr(ids.appName)} App
-    </h1>
-    <h4 class="ml">
-      {getStr(ids.appDesc)}
-    </h4>
 
-    <div class="col w">
-      <img width="100%" src={getRoute("/img/demo.svg")} alt="demo" />
-      <span>{getStr(ids.appExplaination)}</span>
-      <h4>{getStr(ids.appExplaination2)}</h4>
-      <a href={getRoute("/download")} class="btn btn-primary">
+<svelte:head>
+  <title>{getStr(ids.homeTitle)}</title>
+</svelte:head>
+
+<div class="col" style="background-color: #e9f3fb;">
+  <div class="row w maxw3xl between mobilehide">
+    <div class="cols" style="height: 500px; margin-left:12px">
+      <h1>{getStr(ids.appName)}</h1>
+      <img src="/img/demo.svg" alt="demo" height="120" />
+      <p>{getStr(ids.appExplaination)}</p>
+      <p>{getStr(ids.appExplaination2)}</p>
+      <a href={getRoute('/download')} class="btn btn-primary">
         <span class="material-icons md-18">download</span>
-        <span>
-          {getStr(ids.downloadForFree)}
-        </span>
+        <span> {getStr(ids.downloadNow)} </span>
+      </a>
+      <hr>
+      <a class="row" href={getRoute('/download')} >
+        <img src="/img/android.svg" alt="android" height="36">
+        <img src="/img/windows.svg" alt="windows" height="36">
+        <img src="/img/apple.svg" alt="apple" height="36">
+        <img src="/img/linux.svg" alt="linux" height="36">
       </a>
     </div>
+    <img loading="lazy" height="400" src="/img/poster.png" alt="poster" class="poster" />
   </div>
+
+  <div class="col w desktophide">
+    <h1>{getStr(ids.appName)}</h1>
+    <img src="/img/demo.svg" alt="demo" width="80%"/>
+    <p>{getStr(ids.appExplaination)}</p>
+    <p>{getStr(ids.appExplaination2)}</p>
+    <a href={getRoute('/download')} class="btn btn-primary">
+      <span class="material-icons md-18">download</span>
+      <span> {getStr(ids.downloadNow)} </span>
+    </a>
+    <hr>
+    <a class="row" href={getRoute('/download')} >
+      <img src="/img/android.svg" alt="android" height="36">
+      <img src="/img/windows.svg" alt="windows" height="36">
+      <img src="/img/apple.svg" alt="apple" height="36">
+      <img src="/img/linux.svg" alt="linux" height="36">
+    </a>
+    <hr>
+    <img loading="lazy" width="90%" src="/img/poster.png" alt="poster" class="poster" />
+  </div>
+
+ 
 </div>
+
+<div class="col pannel">
+  <h2> {getStr(ids.appDesc)} </h2>
+</div>
+
+<style>
+  a.btn{
+    padding: 12px;
+  }
+  a.row img{
+    margin-right: 8px;
+  }
+  .pannel{
+    margin-top: 40px;
+    margin-bottom: 40px;
+  }
+</style>

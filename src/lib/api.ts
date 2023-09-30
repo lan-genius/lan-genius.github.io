@@ -1,0 +1,1 @@
+export const apiServerUrl='https://at5wqmn2h4iktvvvl7nomvcrj40tbzzr.lambda-url.us-east-1.on.aws/api'

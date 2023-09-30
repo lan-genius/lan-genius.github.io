@@ -93,7 +93,7 @@
   <h1>
     {getStr(ids.downloadClient)}
   </h1>
-  <a href="https://github.com/lan-genius/releases/releases">{getStr(ids.releaseHistory)}</a>
+  <a style="align-self: flex-end;" href="https://github.com/lan-genius/releases/releases">{getStr(ids.releaseHistory)}</a>
 </div>
 
 <div>

@@ -39,9 +39,59 @@ export enum ids {
     orYouCanPurchaseOnMobile,
     ifNotWorkInstall,
     homeTitle,
+    login,
+    register,
+    usernameOrEmail,
+    password,
+    permanentlyDeleteMyAccount,
+    verificationCode,
+    getCode,
+    aVerificationEmailHasBeenSentToYouPleaseCheck,
+    areYouSureToDeleteThisAccount,
+    yourAccountHasBeenPermanentlyDeleted
 }
 
 const m: Record<ids, Translation> = {
+    [ids.yourAccountHasBeenPermanentlyDeleted]:{
+        en:'Permanently deleting your account has be done successfully!',
+        zh:'您的账号已经永久性删除成功'
+    },
+    [ids.areYouSureToDeleteThisAccount]:{
+        en:'Are you sure to permanently delete your account?',
+        zh:'您确定要永久删除您的账号吗？'
+    },
+    [ids.aVerificationEmailHasBeenSentToYouPleaseCheck]:{
+        en:"A verification E-mail has been sent to you, please check",
+        zh:'一封验证邮件已经发送至您的邮箱，请查收'
+    },
+    [ids.getCode]:{
+        en:'Get Code',
+        zh:'获取验证码'
+    },
+    [ids.verificationCode]:{
+        en:'Verification Code',
+        zh:'邮箱验证码'
+    },
+    [ids.permanentlyDeleteMyAccount]:{
+        en:'Permanently Delete My Account',
+        zh:'永久性删除我的账号'
+    },
+    [ids.password]:{
+        en:'Password',
+        zh:"密码"
+    },
+    [ids.usernameOrEmail]:{
+        en:"Username or E-mail",
+        zh:"用户名或邮箱"
+    },
+    [ids.login]:{
+        en:'Login',
+        zh:'登录'
+    },
+    [ids.register]:{
+        en:'Register',
+        zh:'注册'
+    },
     [ids.appName]: {
         en: 'LanGenius',
         zh: '局域网精灵'
@@ -51,7 +101,7 @@ const m: Record<ids, Translation> = {
         zh: '局域网传输神器！快速共享文件和剪切板',
     },
     [ids.appExplaination]: {
-        en: 'Senf Files/Clipboard Text via WiFi',
+        en: 'Transfer Files/Clipboard via WiFi',
         zh: '通过Wi-Fi实现高速传输文件',
     },
     [ids.appExplaination2]: {

@@ -163,7 +163,7 @@ body {
 }
 
 .maxw3xl {
-    max-width: 768px
+    max-width: 1000px;
 }
 
 .rounded {
@@ -302,7 +302,8 @@ body {
     border-radius: 4px;
     display: inline-flex;
     flex-direction: row;
-    align-items: center
+    align-items: center;
+    justify-content: space-around;
 }
 
 .btn-primary {
@@ -365,7 +366,7 @@ body {
     width: 100%;
     padding-top: 32px;
     padding-bottom: 32px;
-    margin-top: 400px;
+    margin-top: 600px;
     background-color: #303846;
     display: flex;
     flex-direction: row;

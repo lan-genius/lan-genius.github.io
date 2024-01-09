@@ -48,7 +48,9 @@ export enum ids {
     getCode,
     aVerificationEmailHasBeenSentToYouPleaseCheck,
     areYouSureToDeleteThisAccount,
-    yourAccountHasBeenPermanentlyDeleted
+    yourAccountHasBeenPermanentlyDeleted,
+    about,
+    aboutDesc1,
 }
 
 const m: Record<ids, Translation> = {
@@ -215,6 +217,14 @@ const m: Record<ids, Translation> = {
     [ids.homeTitle]:{
         en:'LanGenius Official Website',
         zh:'局域网精灵|中文官网',
+    },
+    [ids.about]:{
+        en:'About',
+        zh:'关于'
+    },
+    [ids.aboutDesc1]:{
+        en:`The initial thought on LanGenisu is to bring connectivity into the Local Area Network`,
+        zh:`局域网精灵的最初目的是提高局域网的可连接性。`
     }
 }
 

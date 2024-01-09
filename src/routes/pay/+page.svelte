@@ -23,7 +23,7 @@
   };
 </script>
 
-<div class="col">
+<div class="c">
   <h1>{getStr(ids.payNow)}</h1>
   <h3>
     <b class="red">{getStr(ids.pleaseRemarkYourUsernameWhenPaying)}!!!</b>

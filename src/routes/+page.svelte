@@ -8,9 +8,9 @@
   <title>{getStr(ids.homeTitle)}</title>
 </svelte:head>
 
-<div class="col" style="background-color: #e9f3fb;">
+<div class="c" style="background-color: #e9f3fb;">
   <div class="row w maxw3xl between mobilehide">
-    <div class="cols" style="height: 500px; margin-left:12px">
+    <div class="cs" style="height: 500px; margin-left:12px">
       <h1>{getStr(ids.appName)}</h1>
       <img src="/img/demo.svg" alt="demo" height="120" />
       <p>{getStr(ids.appExplaination)}</p>
@@ -30,7 +30,7 @@
     <img loading="lazy" height="400" src="/img/poster.png" alt="poster" class="poster" />
   </div>
 
-  <div class="col w desktophide">
+  <div class="c w desktophide">
     <h1>{getStr(ids.appName)}</h1>
     <img src="/img/demo.svg" alt="demo" width="80%"/>
     <p>{getStr(ids.appExplaination)}</p>
@@ -53,7 +53,7 @@
  
 </div>
 
-<div class="col pannel">
+<div class="c pannel">
   <h2> {getStr(ids.appDesc)} </h2>
 </div>
 

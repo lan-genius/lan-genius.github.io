@@ -12,8 +12,8 @@
   }
 </script>
 
-<div class="col">
-  <div class="col w maxw3xl p">
+<div class="c">
+  <div class="c w maxw3xl p">
     <b class="red">🎉{getStr(ids.beMemberToUnlockFeatures)}🎉 </b>
     <div class="row m">
       <span>{getStr(ids.pleaseCreateAnAccountBeforePay)}</span>

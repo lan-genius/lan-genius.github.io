@@ -23,8 +23,8 @@
   }
 </script>
 
-<div class="col">
-  <div class="col maxw3xl w">
+<div class="c">
+  <div class="c maxw3xl w">
     <h1>{getStr(ids.login)} / {getStr(ids.register)}</h1>
     <table>
       <tr>

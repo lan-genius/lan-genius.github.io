@@ -89,7 +89,7 @@
   ];
 </script>
 
-<div class="cols p">
+<div class="cs p">
   <h1>
     {getStr(ids.downloadClient)}
   </h1>
@@ -107,7 +107,7 @@
         <hr />
         <div class="row">
           <img src={getRoute(v.icon)} alt={v.title} height="24" />
-          <div class="cols ml">
+          <div class="cs ml">
             <b>{v.title}</b>
             <caption class="w" bind:innerHTML={v.subtitle} contenteditable="false" />
           </div>

@@ -3,8 +3,8 @@
 
 
 </script>
-<div class="col">
-    <div class="colst">
+<div class="c">
+    <div class="cst">
         <p>{getStr(ids.contact)}:</p>
         <ul>
             <li>

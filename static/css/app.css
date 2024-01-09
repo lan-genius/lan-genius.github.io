@@ -3,25 +3,25 @@ body {
     font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif
 }
 
-.col {
+.c {
     display: flex;
     flex-direction: column;
     align-items: center
 }
 
-.cols {
+.cs {
     display: flex;
     flex-direction: column;
     align-items: flex-start
 }
 
-.cole {
+.ce {
     display: flex;
     flex-direction: column;
     align-items: flex-end
 }
 
-.colst {
+.cst {
     display: flex;
     flex-direction: column;
     align-items: stretch
@@ -164,6 +164,9 @@ body {
 
 .maxw3xl {
     max-width: 1000px;
+}
+.maxwsm {
+    max-width: 780px;
 }
 
 .rounded {

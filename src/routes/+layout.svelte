@@ -28,9 +28,9 @@
     <span class="material-icons md-18">download</span>
     <span class="mobilehide">{getStr(ids.download)}</span>
   </a>
-  <a class="btn btn-link" href={getRoute("/price")}>
-    <span class="material-icons md-18">shopping_cart</span>
-    <span class="mobilehide">{getStr(ids.pricing)}</span>
+  <a class="btn btn-link" href={getRoute("/about")}>
+    <span class="material-icons md-18">person</span>
+    <span class="mobilehide">{getStr(ids.about)}</span>
   </a>
   <a class="btn btn-link" href={getRoute("/contact")}>
     <span class="material-icons md-18">call</span>
@@ -47,7 +47,7 @@
 <slot />
 
 <footer class="footer">
-  <div class="col">
+  <div class="c">
     <h4>Alternate Site</h4>
     <a href="http://lan-genius.com" class="white mb">lan-genius.com</a>
     <a href="http://langenius.gitee.io" class="white mb">langenius.gitee.io</a>

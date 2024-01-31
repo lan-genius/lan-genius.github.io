@@ -1,4 +1,16 @@
-# readme.md
+# TeamViewer
 
-- login
-- delete account
+- backend
+    - account
+    - connectivity
+- desktop
+    - connect
+        - LAN address
+        - Public ID
+    - devices
+        - local devices
+        - Public devices
+        - account devices
+    - public resource
+        - files
+        - clipboard

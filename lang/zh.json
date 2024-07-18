@@ -13,7 +13,9 @@
 	"home": "首页",
 	"homeTitle": "首页标题",
 	"ifNotWorkPleaseInstall": "无法运行？请先安装",
+	"news": "网站动态",
 	"officialSite": "官网中文网站",
 	"pleaseInstallDependency": "请安装依赖库",
+	"published": "发布日期",
 	"releaseHistory": "历史版本"
 }

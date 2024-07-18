@@ -3,6 +3,7 @@ package zweb
 import (
 	"encoding/json"
 	"fmt"
+	"html/template"
 	"io"
 	"log"
 	"net/http"
@@ -10,6 +11,9 @@ import (
 	"path/filepath"
 	"strings"
 
+	"github.com/gomarkdown/markdown"
+	"github.com/gomarkdown/markdown/html"
+	"github.com/gomarkdown/markdown/parser"
 	"github.com/tdewolff/minify/v2/minify"
 )
 
@@ -143,4 +147,96 @@ func TryMinifyFile(path string) error {
 		return e
 	}
 	return nil
+}
+
+func parsePathParams(dir string, urlPath string) (string, map[string]any, error) {
+	m := make(map[string]any)
+	dst := filepath.Join(dir, strings.TrimPrefix(urlPath, "/"))
+	if _, e := os.Stat(dst); e == nil {
+		// already exists
+		return "", m, nil
+	}
+	pwd := dir
+	ss := strings.Split(urlPath, "/")
+
+ROUTE_LOOP:
+	for _, filename := range ss {
+		if filename == "" {
+			continue
+		}
+		info, e := os.Stat(filepath.Join(pwd, filename))
+		if e != nil {
+			fs, e := os.ReadDir(pwd)
+			if e != nil {
+				log.Panic(e)
+				return "", nil, e
+			}
+			for _, f := range fs {
+				if f.Name()[0] == '[' {
+					key := SubBefore(f.Name()[1:], "]", "")
+					suffix := SubAfter(f.Name(), "]", "")
+					m[key] = strings.TrimSuffix(filename, suffix)
+					pwd = filepath.Join(pwd, f.Name())
+					continue ROUTE_LOOP
+				}
+			}
+			// not found
+			return "", nil, fmt.Errorf("route not found %s", urlPath)
+		}
+
+		if info.IsDir() {
+			pwd = filepath.Join(pwd, filename)
+			continue
+		}
+		break
+	}
+	return pwd, m, nil
+}
+
+func mdToHTML(mdFile string) template.HTML {
+	md, e := os.ReadFile(mdFile)
+	if e != nil {
+		log.Println(e)
+		return template.HTML(e.Error())
+	}
+
+	// create markdown parser with extensions
+	extensions := parser.CommonExtensions | parser.AutoHeadingIDs | parser.NoEmptyLineBeforeBlock
+	p := parser.NewWithExtensions(extensions)
+	doc := p.Parse(md)
+
+	// create HTML renderer with extensions
+	htmlFlags := html.CommonFlags | html.HrefTargetBlank
+	opts := html.RendererOptions{Flags: htmlFlags}
+	renderer := html.NewRenderer(opts)
+
+	s := string(markdown.Render(doc, renderer))
+	return template.HTML(s)
+}
+
+func loadMdList(dir string) []map[string]any {
+	var list []map[string]any
+	fs, e := os.ReadDir(dir)
+	if e != nil {
+		log.Println(e)
+		return nil
+	}
+	for _, f := range fs {
+		if f.IsDir() || !strings.HasSuffix(f.Name(), ".md") {
+			continue
+		}
+		b, e := os.ReadFile(filepath.Join(dir, f.Name()))
+		if e != nil {
+			log.Println(e)
+			continue
+		}
+
+		m := make(map[string]any)
+		m["filename"] = strings.TrimSuffix(f.Name(), ".md")
+
+		s := SubBefore(string(b), "\n", "")
+		m["title"] = strings.TrimPrefix(s, "# ")
+		list = append(list, m)
+	}
+	return list
 }

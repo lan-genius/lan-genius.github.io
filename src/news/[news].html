@@ -1,0 +1,20 @@
+{{template "header" .}}
+
+<div class="c" style="margin-top: 20px;">
+    <div class="w maxw">
+        <div>
+            <a href='{{absPathOf "/news.html"}}'>{{s "news"}}/</a>
+            <span>{{.PathParams.news}} </span>
+        </div>
+        <hr>
+        <p>
+            {{mdToHtml (print "src/news/data/" .PathParams.news ".md")}}
+        </p>
+        <hr>
+        <i>
+            {{s "published"}}: 
+            {{.PathParams.news}}
+        </i>
+    </div>
+</div>
+{{template "footer" .}}

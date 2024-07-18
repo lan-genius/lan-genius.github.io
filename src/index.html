@@ -31,18 +31,23 @@
                         <li class='{{if eq .RelPath "/download.html" }}active{{end}}'><a href='{{absPathOf "/download.html"}}'>
                                 <i class="icon-download-alt icon-white"></i>
                                 {{s "download"}}
-                            </a></li>
-                        <li class='{{if eq .RelPath "/about.html" }}active{{end}}'><a href='{{absPathOf "/about.html"}}'>
+                            </a>
+                        </li>
+                        <li class='{{if hasPrefix .RelPath "/news" }}active{{end}}'><a href='{{absPathOf "/news.html"}}'>
                                 <i class="icon-info-sign icon-white"></i>
-                                {{s "about"}}
-                            </a></li>
+                                {{s "news"}}
+                            </a>
+                        </li>
                         <li class='{{if eq .RelPath "/contact.html" }}active{{end}}'><a href='{{absPathOf "/contact.html"}}'>
                                 <i class="icon-envelope icon-white"></i>
                                 {{s "contact"}}
-                            </a></li>
+                            </a>
+                        </li>
                     </ul>
                     <ul class="nav pull-right">
+                        {{if not (hasPrefix .RelPath "/news")}}
                         <li><a href='{{if eq .Lang "en"}}/zh{{relPath .Req.URL.Path}}{{else}}/en{{relPath .Req.URL.Path}}{{end}}'>{{if eq .Lang "en"}}中文{{else}}Eng{{end}}</a></li>
+                        {{end}}
                     </ul>
                 </div>
             </div>
@@ -123,6 +128,7 @@
             <a href="http://lan-genius.top" class="white mb">lan-genius.top</a>
             <a href="http://lan-genius.github.io" class="white mb">lan-genius.github.io</a>
             <a href="http://langenius-tech.web.app" class="white mb">langenius-tech.web.app</a>
+            <a href="about.html">{{s "about"}} </a>
         </div>
     </footer>
 

@@ -169,6 +169,10 @@ body {
     max-width: 780px;
 }
 
+.maxw {
+    max-width: 860px;
+}
+
 .rounded {
     border-radius: 4px
 }

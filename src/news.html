@@ -1,0 +1,15 @@
+{{template "header" .}}
+<div class="c" style="margin-top: 20px;">
+    <div class="w maxw">
+        <h1>{{s "news"}} </h1>
+        <hr>
+        <ul>{{range (loadMdList "src/news/data")}}
+            <li>
+                <a href='/news/{{.filename}}.html'>
+                    {{.filename}} - {{.title}}
+                </a>
+            </li>{{end}}
+        </ul>
+    </div>
+</div>
+{{template "footer" .}}

@@ -84,9 +84,15 @@ func (z *ZWeb) loadTemplates(r *http.Request) (*template.Template, error) {
 	t := template.New("zweb template")
 	//funcs
 	t = t.Funcs(template.FuncMap{
-		"s":         z.langEngine.generateS(r),
-		"absPathOf": z.langEngine.generateAbsPathOf(r),
-		"relPath":   z.langEngine.getRelPath,
+		"s":          z.langEngine.generateS(r),
+		"absPathOf":  z.langEngine.generateAbsPathOf(r),
+		"relPath":    z.langEngine.getRelPath,
+		"mdToHtml":   mdToHTML,
+		"hasPrefix":  strings.HasPrefix,
+		"hasSuffix":  strings.HasSuffix,
+		"loadMdList": loadMdList,
+		"trimSuffix": strings.TrimSuffix,
+		"trimPrefix": strings.TrimPrefix,
 	})
 	for _, path := range toParse {
 		rel, e := filepath.Rel(z.cfg.Dir, path)
@@ -143,10 +149,26 @@ func (z *ZWeb) run(randomPort bool) error {
 				http.Error(w, e.Error(), http.StatusInternalServerError)
 				return
 			}
+
+			dynamicFile, pathParams, e := parsePathParams(z.cfg.Dir, r.URL.Path)
+			if e != nil {
+				log.Println(e)
+				http.Error(w, e.Error(), http.StatusInternalServerError)
+				return
+			}
+			if dynamicFile != "" {
+				name, e = filepath.Rel(z.cfg.Dir, dynamicFile)
+				if e != nil {
+					log.Println(e)
+					http.Error(w, e.Error(), http.StatusInternalServerError)
+					return
+				}
+			}
 			e = t.ExecuteTemplate(w, name, map[string]any{
-				"Req":     r,
-				"RelPath": z.langEngine.getRelPath(r.URL.Path),
-				"Lang":    z.langEngine.getLangOf(r),
+				"Req":        r,
+				"RelPath":    z.langEngine.getRelPath(r.URL.Path),
+				"Lang":       z.langEngine.getLangOf(r),
+				"PathParams": pathParams,
 			})
 			if e != nil {
 				log.Println(e)

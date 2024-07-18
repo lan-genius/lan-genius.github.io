@@ -22,27 +22,27 @@
                     <span class="icon-bar"></span>
                 </a>
 
-                <a class="brand" href="{{absPathOf " /"}}">
+                <a class="brand" href='{{absPathOf "/"}}'>
                     <img src="/res/img/logo.png" alt="logo" height="32" width="32" style="margin-right: 12px;margin-top: -4px;" />
                     {{s "appName"}}
                 </a>
                 <div class="nav-collapse collapse navbar-inverse-collapse">
                     <ul class="nav">
-                        <li class="{{if eq .RelPath " /download.html" }}active{{end}}"><a href="{{absPathOf " /download.html"}}">
+                        <li class='{{if eq .RelPath "/download.html" }}active{{end}}'><a href='{{absPathOf "/download.html"}}'>
                                 <i class="icon-download-alt icon-white"></i>
                                 {{s "download"}}
                             </a></li>
-                        <li class="{{if eq .RelPath " /about.html" }}active{{end}}"><a href="{{absPathOf " /about.html"}}">
+                        <li class='{{if eq .RelPath "/about.html" }}active{{end}}'><a href='{{absPathOf "/about.html"}}'>
                                 <i class="icon-info-sign icon-white"></i>
                                 {{s "about"}}
                             </a></li>
-                        <li class="{{if eq .RelPath " /contact.html" }}active{{end}}"><a href="{{absPathOf " /contact.html"}}">
+                        <li class='{{if eq .RelPath "/contact.html" }}active{{end}}'><a href='{{absPathOf "/contact.html"}}'>
                                 <i class="icon-envelope icon-white"></i>
                                 {{s "contact"}}
                             </a></li>
                     </ul>
                     <ul class="nav pull-right">
-                        <li><a href="{{if eq .Lang " en"}}/zh{{relPath .Req.URL.Path}}{{else}}/en{{relPath .Req.URL.Path}}{{end}}">{{if eq .Lang "en"}}中文{{else}}Eng{{end}}</a></li>
+                        <li><a href='{{if eq .Lang "en"}}/zh{{relPath .Req.URL.Path}}{{else}}/en{{relPath .Req.URL.Path}}{{end}}'>{{if eq .Lang "en"}}中文{{else}}Eng{{end}}</a></li>
                     </ul>
                 </div>
             </div>

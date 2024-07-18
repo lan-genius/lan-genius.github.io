@@ -150,7 +150,7 @@ func (z *ZWeb) run(randomPort bool) error {
 				return
 			}
 
-			dynamicFile, pathParams, e := parsePathParams(z.cfg.Dir, r.URL.Path)
+			dynamicFile, pathParams, e := parsePathParams(z.cfg.Dir, name)
 			if e != nil {
 				log.Println(e)
 				http.Error(w, e.Error(), http.StatusInternalServerError)
@@ -201,13 +201,35 @@ func (z *ZWeb) Export() error {
 	os.RemoveAll(z.cfg.OutDir)
 	time.Sleep(1 * time.Second)
 	e := filepath.WalkDir(z.cfg.Dir, func(path string, d fs.DirEntry, err error) error {
-		if d.IsDir() {
+		if d.IsDir() || strings.HasPrefix(d.Name(), ".") || strings.Contains(path, "_data/") {
 			return nil
 		}
 		rel, e := filepath.Rel(z.cfg.Dir, path)
 		if e != nil {
 			log.Println(e)
 			return e
+		}
+
+		if strings.Contains(rel, "[") {
+			dir := filepath.Dir(path)
+			fs, e := os.ReadDir(filepath.Join(dir, "_data"))
+			if e != nil {
+				log.Println(e)
+				return e
+			}
+			for _, f := range fs {
+				name := strings.TrimSuffix(f.Name(), filepath.Ext(f.Name()))
+				rel = filepath.Join(filepath.Dir(rel), name+filepath.Ext(rel))
+				dst := filepath.Join(z.cfg.OutDir, rel)
+				println(rel)
+
+				e = downloadToWithMinifier(dst, "http://localhost"+z.addr+"/"+strings.TrimSuffix(rel, "index.html"))
+				if e != nil {
+					log.Println(e)
+					return e
+				}
+			}
+			return nil
 		}
 
 		println(rel)

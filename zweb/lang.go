@@ -77,6 +77,12 @@ func (l *LangEngine) loadLangs() error {
 
 // method run
 func (l *LangEngine) Run() error {
+	e := l.loadLangs()
+	if e != nil {
+		log.Println(e)
+		return e
+	}
+
 	return nil
 }
 

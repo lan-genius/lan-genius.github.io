@@ -1,0 +1,19 @@
+{
+	"about": "About",
+	"aboutDesc1": "The initial thought on LanGenisu is to bring connectivity into the Local Area Network",
+	"appDesc": "Transfer files in LAN with ease",
+	"appExplaination1": "Transfer Files/Clipboard via WiFi",
+	"appExplaination2": "No Traffic Cost, No Internet Needed",
+	"appName": "LanGenius",
+	"contact": "Contact",
+	"download": "Download",
+	"downloadClient": "DownloadClient",
+	"downloadNow": "DownloadNow",
+	"email": "Email",
+	"home": "Home",
+	"homeTitle": "HomeTitle",
+	"ifNotWorkPleaseInstall": "If not work, please install ",
+	"officialSite": "Official Site",
+	"pleaseInstallDependency": "Please install dependency library ",
+	"releaseHistory": "ReleaseHistory"
+}

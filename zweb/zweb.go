@@ -1,6 +1,7 @@
 package zweb
 
 import (
+	"fmt"
 	"html/template"
 	"io/fs"
 	"log"
@@ -17,14 +18,15 @@ type (
 	ZWeb struct {
 		cfg        Config
 		langEngine *LangEngine
-		tpl        *template.Template
 		addr       string
 	}
 	Config struct {
-		Dir         string   //target directory, default src/
-		OutDir      string   //output directory, default public/
-		LangDir     string   // language directory, default lang/
-		TemplateExt []string // template extension, default .html
+		Dir                 string   //target directory, default src/
+		OutDir              string   //output directory, default public/
+		LangDir             string   // language directory, default lang/
+		TemplateExt         []string // template extension, default .html
+		DisableLangAutoSync bool     //disable auto sync language files, default false
+		DefaultLang         string   //default language, default en
 	}
 )
 
@@ -45,7 +47,7 @@ func New(cfg ...Config) *ZWeb {
 	if z.cfg.OutDir == "" {
 		z.cfg.OutDir = "public"
 	}
-	z.langEngine = NewLangEngine(z.cfg.LangDir)
+	z.langEngine = NewLangEngine(z.cfg)
 	return z
 }
 
@@ -63,7 +65,7 @@ func (z *ZWeb) isTemplateExt(ext string) bool {
 }
 
 // method loadtemplates
-func (z *ZWeb) loadTemplates() error {
+func (z *ZWeb) loadTemplates(r *http.Request) (*template.Template, error) {
 	var toParse []string
 	e := filepath.WalkDir(z.cfg.Dir, func(path string, d fs.DirEntry, err error) error {
 		if d.IsDir() {
@@ -76,36 +78,44 @@ func (z *ZWeb) loadTemplates() error {
 	})
 	if e != nil {
 		log.Println(e)
-		return e
+		return nil, e
 	}
 
 	t := template.New("zweb template")
+	//funcs
+	t = t.Funcs(template.FuncMap{
+		"s":         z.langEngine.generateS(r),
+		"absPathOf": z.langEngine.generateAbsPathOf(r),
+		"relPath":   z.langEngine.getRelPath,
+	})
 	for _, path := range toParse {
 		rel, e := filepath.Rel(z.cfg.Dir, path)
 		if e != nil {
 			log.Println(e)
-			return e
+			return nil, e
 		}
 		println(rel)
 		bs, e := os.ReadFile(path)
 		if e != nil {
 			log.Println(e)
-			return e
+			return nil, e
 		}
 		t, e = t.New(rel).Parse(string(bs))
 		if e != nil {
 			log.Println(e)
-			return e
+			return nil, e
 		}
 	}
 
-	z.tpl = t
-	return nil
+	return t, nil
 }
 
 // method Run
 func (z *ZWeb) Run() error {
-	e := z.loadTemplates()
+	return z.run(false)
+}
+func (z *ZWeb) run(randomPort bool) error {
+	e := z.langEngine.Run()
 	if e != nil {
 		log.Println(e)
 		return e
@@ -117,19 +127,44 @@ func (z *ZWeb) Run() error {
 			name += "index.html"
 		}
 		name = name[1:]
+
+		s := SubBefore(name, "/", "")
+		if s != "" {
+			if _, ok := z.langEngine.langs[s]; ok {
+				name = strings.TrimPrefix(name, s)
+				name = strings.TrimPrefix(name, "/")
+			}
+		}
+
 		if z.isTemplateExt(filepath.Ext(name)) {
-			e := z.tpl.ExecuteTemplate(w, name, nil)
+			t, e := z.loadTemplates(r)
 			if e != nil {
 				log.Println(e)
 				http.Error(w, e.Error(), http.StatusInternalServerError)
 				return
 			}
+			e = t.ExecuteTemplate(w, name, map[string]any{
+				"Req":     r,
+				"RelPath": z.langEngine.getRelPath(r.URL.Path),
+				"Lang":    z.langEngine.getLangOf(r),
+			})
+			if e != nil {
+				log.Println(e)
+				http.Error(w, e.Error(), http.StatusInternalServerError)
+				return
+			}
+			z.langEngine.TrySync()
 			return
 		}
 		http.ServeFile(w, r, filepath.Join(z.cfg.Dir, name))
 	})
 
-	z.addr = ":" + strconv.Itoa(rand.Intn(1000)+8080)
+	port := 8080
+	if randomPort {
+		port = rand.Intn(1000) + 8080
+	}
+	z.addr = ":" + strconv.Itoa(port)
+	fmt.Println("running on http://localhost" + z.addr)
 	e = http.ListenAndServe(z.addr, nil)
 	if e != nil {
 		log.Panic(e)
@@ -140,7 +175,7 @@ func (z *ZWeb) Run() error {
 
 // method export
 func (z *ZWeb) Export() error {
-	go z.Run()
+	go z.run(true)
 	os.RemoveAll(z.cfg.OutDir)
 	time.Sleep(1 * time.Second)
 	e := filepath.WalkDir(z.cfg.Dir, func(path string, d fs.DirEntry, err error) error {
@@ -155,12 +190,23 @@ func (z *ZWeb) Export() error {
 
 		println(rel)
 		dst := filepath.Join(z.cfg.OutDir, rel)
-		e = downloadTo(dst, "http://localhost"+z.addr+"/"+strings.TrimSuffix(rel, "index.html"))
+		e = downloadToWithMinifier(dst, "http://localhost"+z.addr+"/"+strings.TrimSuffix(rel, "index.html"))
 		if e != nil {
 			log.Println(e)
 			return e
 		}
 
+		// other languages
+		if z.isTemplateExt(filepath.Ext(path)) {
+			for lang := range z.langEngine.langs {
+				dst = filepath.Join(z.cfg.OutDir, lang, rel)
+				e = downloadToWithMinifier(dst, "http://localhost"+z.addr+"/"+lang+"/"+strings.TrimSuffix(rel, "index.html"))
+				if e != nil {
+					log.Println(e)
+					return e
+				}
+			}
+		}
 		return nil
 	})
 	if e != nil {

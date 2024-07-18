@@ -1,16 +1,11 @@
 package main
 
-import (
-	"log"
-
-	"github.com/lan-genius/lan-genius.github.io/zweb"
-)
-
-func init() {
-	log.SetFlags(log.Lshortfile)
-}
+import "github.com/lan-genius/lan-genius.github.io/zweb"
 
 func main() {
-	z := zweb.New()
+	z := zweb.New(zweb.Config{
+		DefaultLang: "zh",
+	})
+	// z.Run()
 	z.Export()
 }

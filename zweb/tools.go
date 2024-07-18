@@ -9,6 +9,8 @@ import (
 	"os"
 	"path/filepath"
 	"strings"
+
+	"github.com/tdewolff/minify/v2/minify"
 )
 
 func loadLangJson(file string) map[string]string {
@@ -77,7 +79,7 @@ func writeHtmlHeader(w http.ResponseWriter) {
 	w.WriteHeader(http.StatusOK)
 }
 
-func downloadTo(dst string, url string) error {
+func downloadToWithMinifier(dst string, url string) error {
 	res, e := http.Get(url)
 	if e != nil {
 		log.Println(e)
@@ -95,6 +97,47 @@ func downloadTo(dst string, url string) error {
 
 	os.MkdirAll(filepath.Dir(dst), 0755)
 	e = os.WriteFile(dst, b, 0644)
+	if e != nil {
+		log.Println(e)
+		return e
+	}
+	e = TryMinifyFile(dst)
+	if e != nil {
+		log.Println(e)
+		return e
+	}
+
+	return nil
+}
+
+// minify
+func TryMinifyFile(path string) error {
+	ext := filepath.Ext(path)
+	switch ext {
+	case ".html", ".css", ".js":
+	default:
+		return nil
+	}
+	b, e := os.ReadFile(path)
+	if e != nil {
+		log.Println(e)
+		return e
+	}
+	var s string
+	switch filepath.Ext(path) {
+	case ".html":
+		s, e = minify.HTML(string(b))
+	case ".css":
+		s, e = minify.CSS(string(b))
+	case ".js":
+		s, e = minify.JS(string(b))
+	}
+	if e != nil {
+		log.Println(e)
+		return e
+	}
+
+	e = os.WriteFile(path, []byte(s), 0644)
 	if e != nil {
 		log.Println(e)
 		return e

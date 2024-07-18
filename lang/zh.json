@@ -1,0 +1,19 @@
+{
+	"about": "关于",
+	"aboutDesc1": "局域网精灵的最初目的是提高局域网的可连接性。",
+	"appDesc": "局域网内轻松传文件",
+	"appExplaination1": "通过Wi-Fi实现高速传输文件",
+	"appExplaination2": "不再依赖数据线，不耗流量！",
+	"appName": "局域网精灵",
+	"contact": "联系方式",
+	"download": "下载",
+	"downloadClient": "下载客户端",
+	"downloadNow": "立即下载",
+	"email": "邮箱",
+	"home": "首页",
+	"homeTitle": "首页标题",
+	"ifNotWorkPleaseInstall": "无法运行？请先安装",
+	"officialSite": "官网中文网站",
+	"pleaseInstallDependency": "请安装依赖库",
+	"releaseHistory": "历史版本"
+}

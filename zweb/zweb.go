@@ -22,7 +22,7 @@ type (
 	}
 	Config struct {
 		Dir                 string   //target directory, default src/
-		OutDir              string   //output directory, default public/
+		OutDir              string   //output directory, default docs/
 		LangDir             string   // language directory, default lang/
 		TemplateExt         []string // template extension, default .html
 		DisableLangAutoSync bool     //disable auto sync language files, default false
@@ -45,7 +45,7 @@ func New(cfg ...Config) *ZWeb {
 		z.cfg.Dir = "src"
 	}
 	if z.cfg.OutDir == "" {
-		z.cfg.OutDir = "public"
+		z.cfg.OutDir = "docs"
 	}
 	z.langEngine = NewLangEngine(z.cfg)
 	return z

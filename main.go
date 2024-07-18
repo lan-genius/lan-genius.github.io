@@ -6,6 +6,6 @@ func main() {
 	z := zweb.New(zweb.Config{
 		DefaultLang: "zh",
 	})
-	z.Run()
-	// z.Export()
+	// z.Run()
+	z.Export()
 }

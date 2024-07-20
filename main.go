@@ -3,7 +3,7 @@ package main
 import (
 	"os"
 
-	"github.com/lan-genius/lan-genius.github.io/zweb"
+	"github.com/stevenzack/zweb"
 )
 
 func main() {
